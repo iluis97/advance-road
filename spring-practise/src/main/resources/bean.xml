@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns="http://www.springframework.org/schema/beans"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!--把对象的创建交给spring管理-->
+    <!--id:唯一标识  chass:获取创建对象的全限定类名-->
+    <bean id="aliPayService"
+          class="cn.luis.advance.spring.practise.demo1_one_interface_more_impl.service.impl.AliPayService"
+          init-method="init">
+        <constructor-arg name="goodsService" ref="goodsService"/>
+    </bean>
+    <bean id="weChatPayService"
+          class="cn.luis.advance.spring.practise.demo1_one_interface_more_impl.service.impl.WeChatPayService">
+        <constructor-arg name="goodsService" ref="goodsService"/>
+    </bean>
+    <bean id="payService"
+          class="cn.luis.advance.spring.practise.demo1_one_interface_more_impl.service.impl.CommonPayService">
+        <constructor-arg name="goodsService" ref="goodsService"/>
+    </bean>
+    <bean id="goodsService"
+          class="cn.luis.advance.spring.practise.demo1_one_interface_more_impl.service.impl.GoodsServiceImpl"/>
+    <bean id="orderService"
+          class="cn.luis.advance.spring.practise.demo1_one_interface_more_impl.service.impl.OrderServiceImpl">
+        <property name="payService" ref="payService"/>
+    </bean>
+    <bean id="springContextHolder"
+          class="cn.luis.advance.spring.practise.demo1_one_interface_more_impl.service.SpringContextHolder"/>
+</beans>
